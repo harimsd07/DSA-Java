@@ -82,3 +82,40 @@ public class RichestWealth {
 
     }
 }
+
+
+
+
+/*
+ * 
+ * import java.util.Arrays;
+
+public class RichestWealthOptimized {
+    public static void main(String[] args) {
+        int[][] accounts = {{1, 2, 3, 4}, {1, 2, 3, 8}};
+        System.out.println(maximumWealth(accounts)); // Output: 14
+
+        int[][] accounts2 = {{1, 5}, {7, 3}, {3, 5}};
+        System.out.println(maximumWealth(accounts2)); // Output: 10
+    }
+
+   
+    static int maximumWealth(int[][] accounts) {
+        // This variable will keep track of the highest wealth found so far.
+        int maxWealth = 0;
+
+        // Iterate through each customer's list of accounts.
+        for (int[] customerAccounts : accounts) {
+            int currentWealth = 0;
+            // Calculate the total wealth for the current customer.
+            for (int balance : customerAccounts) {
+                currentWealth += balance;
+            }
+            // After calculating the current customer's wealth,
+            // compare it with the max wealth found so far and update if it's greater.
+            maxWealth = Math.max(maxWealth, currentWealth);
+        }
+        return maxWealth;
+    }
+}
+ */
