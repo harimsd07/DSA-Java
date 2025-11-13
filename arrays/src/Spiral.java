@@ -1,103 +1,106 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Spiral {
     public static void main(String[] args) {
-        int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
-
-        spiral(matrix);
+        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16},{17,18,19,20},{21,22,23,24}};
+            // int [][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
+            // int [][] matrix = {{1,2},{3,4}};
+        // spiral(matrix);
+        inspiredSpireal(matrix);
     }
 
     static List<Integer> spiral(int[][] matrix) {
-        int size = matrix[0].length;
         
-        int row =0;
-        int rowLength =3;
+        int row =0 ;
         int col =0;
-        int k =0;
+        int colSize = matrix[0].length;
+        int rowSize =matrix.length;
 
-        
-        Integer[] ans = new Integer[rowLength*size];
-
-        if(matrix.length ==1){
+        ArrayList<Integer> ans = new ArrayList<>();
             
-                ans[k] =matrix[row][col];
-        
-        }
+            if (row ==0){
+                for (col =0 ;col <colSize;col++){
 
-        if (row == 0 && col ==0){
-            row =0;
-            for (col =0;col<size;col++){
-                ans[k] = matrix[row][col];
-                k++;
-                if(k == size){
-                    k= size;
+                    ans.add(matrix[row][col]);
                 }
             }
-        }
-
-        System.out.println(Arrays.toString(ans));
-        System.out.println("row: " +row +" "+ "col: " + col+ " " + "k: " +k);
-
-        if (row == 0 && col == size  ){
-            col = size-1;
-            for (row = row+1;row<rowLength;row++){
-                ans[k] = matrix[row][col];
-                k++;
-            }
-        }
-
-        System.out.println(Arrays.toString(ans));
-        System.out.println("row: " +row +" "+ "col: " + col+ " " + "k: " +k);
-
-        if (row ==rowLength && col == size-1){
-            row = rowLength-1;
-            for (col = (size-1)-1;col>=0;col--){
-                ans[k] =matrix[row][col];
-                k++;
-            }
-            if(col <0){
-                col =0;
-            }
-        }
-
-        System.out.println(Arrays.toString(ans));
-        System.out.println("row: " +row +" "+ "col: " + col+ " " + "k: " +k);
-
-        if (row == rowLength-1 && col ==0){
-            col =0;
-            for (row =row-1;row >0;row--){
-                ans[k] = matrix[row][col];
-                k++;   
-                
-            }
-
-            System.out.println(Arrays.toString(ans));
-             System.out.println("row: " +row +" "+ "col: " + col+ " " + "k: " +k);
-
-            if (row ==0 && col == 0){
-                row = row+1;
-                for (col = col+1;col<size-1;col++){
-                    ans[k] = matrix[row][col];
-                    k++;
-
-                    if (k == rowLength*size){
-                         System.out.println("row: " +row +" "+ "col: " + col+ " " + "k: " +k);
-
-                            System.out.println(Arrays.toString(ans));
-
-                            
-                    }
+            System.out.println(ans);
+            row++;
+            col =colSize-1;
+            if (col ==colSize-1 && row >0){
+                while(row<rowSize){
+                    ans.add(matrix[row][col]);
+                    row++;
                 }
             }
-        }
-        System.out.println(Arrays.toString(ans));
-                            List<Integer> list = Arrays.asList(ans);
+            System.out.println(ans);
+            row = rowSize-1;
+            col--;
+            if(row == rowSize-1 && row>0 && col<colSize && col>=0){
+                while(col>=0){
+                    ans.add(matrix[row][col]);
+                    col--;
+                }
+            }
+            System.out.println(ans);
+            col = 0;
+            row--;
+            if(row<rowSize-1 && col == 0 && row>=0){
+                while(row>0 && row <rowSize && col <colSize-1){
+                    ans.add(matrix[row][col]);
+                    col++;
+                } 
+            }
+            System.out.println(ans);
 
-                            System.out.println(list);
-        
-       return list;
+        return ans;
     }  
+
+    static List<Integer> inspiredSpireal(int[][] matrix){
+        int row =0 ;
+        int col =0;
+        int colSize = matrix[0].length;
+        int rowSize = matrix.length;
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        while(row <= rowSize-1 && col <= colSize-1){
+            for (int i =col ;i <colSize;i++){
+
+                    ans.add(matrix[row][i]);
+                }
+                System.out.println(ans);
+                row ++;
+
+                for (int i = row;i<rowSize;i++ ){
+                    col = colSize-1;
+                    ans.add(matrix[i][col]);
+                }
+                System.out.println(ans);
+                col --;
+
+                for(int i= col;i>=0;i--){
+                    row = rowSize-1;
+                    ans.add(matrix[row][i]);
+                }
+                System.out.println(ans);
+
+                row--;
+
+                for (int i=0;i<colSize-1;i++){
+                    
+                    ans.add(matrix[row][i]);
+                }
+                System.out.println(ans);
+        }
+
+        System.out.println(ans);
+        return null;
+    }
     }
 
+
+    

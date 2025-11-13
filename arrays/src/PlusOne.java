@@ -28,25 +28,17 @@ public class PlusOne {
             sum = digits[i] +carry;
             store.addFirst(sum%10);
             carry  = sum/10;
-            }
-
-            
-
-           
+            } 
             System.out.println(store);
         }
         if ( i <0 && carry==1){
                 store.addFirst(carry);
             }
-
             System.out.println(store);
-
         int arr[] = new int[store.size()];
-
         for(i=0;i<store.size();i++){
             arr[i] = store.get(i);
         }
-
         System.out.println(sum);
         return arr;
     }
