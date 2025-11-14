@@ -1,0 +1,473 @@
+/* General Setup */
+body {
+    /* NEW THEME */
+    font-family: 'Inter', sans-serif;
+    background-color: #FFFFFF; /* White background */
+    color: #111111; /* Dark text */
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0; /* Add some padding to top and bottom */
+}
+
+header {
+    text-align: center;
+    margin: 20px 0;
+    position: relative; /* Needed for icon positioning */
+}
+
+/* REMOVED: Header Icon Style */
+
+header h1 {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+header p {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 0;
+}
+
+/* --- NEW BUTTON STYLES (GREEN) --- */
+#start-btn, #next-btn, #prev-btn, .diagram-controls button {
+    background-color: #AFFF33; /* ACCENT GREEN */
+    color: #111111; /* Dark text */
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+#start-btn {
+    margin-left: 0; /* Start button has no left margin */
+}
+
+#next-btn, #prev-btn {
+    display: none; /* Hide step buttons by default */
+}
+
+#start-btn:hover, #next-btn:hover, #prev-btn:hover, .diagram-controls button:hover {
+    background-color: #9BE02E; /* Darker green on hover */
+}
+
+#start-btn:disabled, #next-btn:disabled, #prev-btn:disabled, .diagram-controls button:disabled {
+    background-color: #e0e0e0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+
+/* --- NEW CONTAINER STYLES --- */
+#animation-container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 800px; 
+    border: 2px solid #E5E7EB; /* Light gray border */
+    border-radius: 24px; /* Much more rounded */
+    background-color: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* Softer shadow */
+    overflow: hidden; 
+}
+
+/* All "Actors" in the scene */
+.scene-element {
+    position: absolute;
+    /* NEW THEME */
+    border: 2px solid #111111; /* Black border */
+    background-color: #F9FAFB; /* Very light gray */
+    color: #111;
+    border-radius: 12px; /* More rounded */
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+
+    opacity: 0;
+    transform: scale(0.5);
+    z-index: 10;
+}
+
+/* Specific Element Styles */
+.code-file {
+    background-color: #FFFFFF;
+    border-color: #111111;
+}
+.code-file pre {
+    background-color: #F3F4F6;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.machine {
+    background-color: #F9FAFB;
+    border-color: #E5E7EB;
+    border-style: solid; /* No more dashed */
+    border-radius: 16px;
+    /* REMOVED: padding-top: 20px; */
+}
+
+/* REMOVED: .component-icon style */
+
+
+#scene-java-file { top: 50px; left: 50px; }
+#scene-compiler { top: 50px; left: 400px; }
+#scene-bytecode-file { top: 50px; left: 700px; }
+
+#scene-jvm {
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.5); /* Center it */
+    width: 1000px; 
+    height: 700px;
+    background-color: #F3F4F6; /* Light gray background */
+    border-color: #E5E7EB;
+    border-radius: 16px;
+}
+
+.jvm-internal {
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 10px;
+    z-index: 12;
+    position: relative;
+}
+
+/* NEW: Style for Bytecode Verifier */
+#scene-bytecode-verifier {
+    position: absolute;
+    top: 140px; /* Below classloader */
+    left: 10px;
+    width: 97.5%;
+    margin: 10px;
+    text-align: center;
+    /* NEW: Hide it */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease-out;
+    z-index: 13; /* FIX: Ensure it's on top of the memory area */
+}
+#scene-bytecode-verifier p {
+    margin: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+
+#jvm-memory-area {
+    display: flex;
+    justify-content: space-around;
+    /* NEW: Pushed down to make room for verifier */
+    padding-top: 80px; 
+    height: 560px; /* Reduced height slightly */
+}
+
+.jvm-internal-small {
+    border: 1px dotted #D1D5DB; /* Dotted separator */
+    height: 100%; /* Fill the memory area */
+    width: 30%;
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    background: #FFFFFF; /* White background for columns */
+    border-radius: 8px;
+}
+
+/* Items inside Method Area and Heap */
+.jvm-internal-item {
+    position: relative;
+    top: 20px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    /* NEW THEME */
+    background-color: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    color: #333;
+
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease-out;
+}
+.jvm-internal-item p {
+    margin: 4px;
+    font-size: 0.9em;
+}
+
+#jvm-stack {
+    background-color: #F3F4F6; /* Match JVM background */
+    position: relative;
+}
+
+/* --- NEW ACCENT COLOR --- */
+#scene-stack-frame {
+    /* This is our active "green" item */
+    opacity: 0;
+    transform: scale(0.5);
+    background-color: #AFFF33; /* ACCENT GREEN */
+    border-color: #76C700; /* Darker green border */
+    color: #111111; /* Dark text */
+    font-weight: 600;
+    width: 80%;
+    left: 10%;
+    top: 40px;
+    z-index: 15;
+    /* NEW: Add transition for the glow effect */
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease-in-out;
+}
+
+/* --- NEW CONSOLE STYLE --- */
+#scene-console {
+    top: 720px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.5); /* Center it */
+    background-color: #111111; /* Black */
+    border-color: #333;
+    color: #AFFF33; /* ACCENT GREEN text */
+    width: 300px;
+    font-family: "Courier New", Courier, monospace;
+    z-index: 10;
+    border-radius: 12px;
+}
+#scene-console p { margin: 5px; }
+
+
+/* --- NEW NARRATION BOX STYLE --- */
+#narration-box {
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #111111; /* Black */
+    color: #FFFFFF; /* White text */
+    padding: 20px;
+    border-radius: 12px; /* More rounded */
+    text-align: center;
+    font-size: 1.1em;
+    min-height: 2em; 
+    font-weight: 500;
+}
+
+/* --- NEW: JDK/JRE/JVM DIAGRAM STYLES --- */
+#jdk-diagram-section {
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 40px; /* Space above diagram */
+    background-color: #F9FAFB; /* Light gray background */
+    border: 2px solid #E5E7EB;
+    border-radius: 24px;
+    padding: 20px;
+    overflow: hidden;
+}
+#jdk-diagram-section h2 {
+    text-align: center;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px; /* Reduced margin */
+}
+/* NEW: Controls for the diagram */
+.diagram-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.diagram-controls button {
+    font-size: 14px; /* Slightly smaller */
+    padding: 10px 16px;
+}
+/* End of new controls */
+
+.diagram-layout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+#jdk-diagram-animated {
+    flex: 1;
+    position: relative;
+    min-height: 350px;
+    min-width: 400px;
+}
+.diagram-box {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    /* CHANGED: Replaced 'grid' with 'block' to fix text overlap */
+    display: block;
+    text-align: center;
+    /* Animation defaults: HIDDEN */
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out;
+}
+.diagram-box.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+.diagram-box strong {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #000;
+    display: block;
+}
+.jdk-box {
+    background-color: #fabf8f; /* Orange */
+    border: 3px solid #e78c45;
+    color: #5d381c;
+}
+.jre-box {
+    background-color: #c4d79b; /* Green */
+    border: 3px solid #9bb06b;
+    color: #3f4e27;
+    inset: 20px;
+}
+.jvm-box {
+    background-color: #c0917f; /* Brown */
+    border: 3px solid #a3705b;
+    color: #4a2d20;
+    inset: 40px;
+}
+.jit-box {
+    background-color: #b7dee8; /* Blue */
+    border: 3px solid #8cbac7;
+    color: #324c55;
+    inset: 60px;
+}
+#jdk-diagram-explanation {
+    flex: 1.5;
+}
+#jdk-diagram-explanation ul {
+    list-style: none;
+    padding: 0;
+}
+#jdk-diagram-explanation li {
+    background-color: #FFFFFF;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    /* NEW: Hide by default */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease-out;
+    display: none; /* Hide fully */
+}
+/* NEW: Class to show the active description */
+#jdk-diagram-explanation li.visible {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+#jdk-diagram-explanation strong {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 5px;
+}
+#jdk-diagram-explanation p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* --- JVM DIAGRAM STYLES --- */
+#diagram-section {
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 40px; /* Space above diagram */
+}
+#diagram-section h2 {
+    text-align: center;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 20px;
+}
+#jvm-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F9FAFB; /* Light gray background */
+    border: 2px solid #E5E7EB;
+    border-radius: 24px;
+    padding: 20px;
+    /* NEW: Add for staggered animation */
+    overflow: hidden;
+}
+.jvm-block {
+    width: 90%;
+    background: #FFFFFF;
+    border: 2px solid #111;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    /* NEW: Add for animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+/* NEW: Visible state for animation */
+.jvm-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jvm-block h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.arrow-connector {
+    font-size: 2em;
+    font-weight: 700;
+    color: #111;
+    /* NEW: Add for animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out 0.2s; /* Add a slight delay */
+}
+/* NEW: Visible state for arrow */
+.arrow-connector.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jvm-memory-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+.jvm-area {
+    background: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 20px 10px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+.jvm-execution-layout {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+.jvm-sub-block {
+    background: #FFFFFF;
+    border: 2px solid #111;
+    border-radius: 8px;
+    padding: 15px;
+    font-weight: 500;
+    flex: 1;
+}

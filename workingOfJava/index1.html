@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java "Hello World" Animation</title>
+    <!-- Import the "Inter" font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+
+    <header>
+        <h1>The "Hello World" Journey</h1>
+        <p>What happens when you compile and run a Java program?</p>
+        <button id="start-btn">Start Animation</button>
+        <button id="prev-btn">&larr; Prev Step</button>
+        <button id="next-btn">Next Step &rarr;</button>
+    </header>
+
+    <!-- The main stage for our animation -->
+    <div id="animation-container">
+
+        <!-- Phase 1: Compilation -->
+        <div id="scene-java-file" class="scene-element code-file">
+            <strong>HelloWorld.java</strong>
+            <pre><code>public class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello, World!");
+  }
+}</code></pre>
+        </div>
+
+        <div id="scene-compiler" class="scene-element machine">
+            <strong>javac</strong>
+            <p>(Compiler)</p>
+        </div>
+
+        <div id="scene-bytecode-file" class="scene-element code-file">
+            <strong>HelloWorld.class</strong>
+            <pre><code>[Java Bytecode]
+01101011
+10010010
+...</code></pre>
+        </div>
+
+        <!-- Phase 2: Execution -->
+        <div id="scene-jvm" class="scene-element machine">
+            <strong>JVM (Java Virtual Machine)</strong>
+            
+            <div id="scene-classloader" class="jvm-internal">
+                <strong>Classloader</strong>
+            </div>
+            
+            <div id="scene-bytecode-verifier" class="jvm-internal">
+                <strong>Bytecode Verifier</strong>
+                <p>Checking for safety & correctness...</p>
+            </div>
+
+            <div id="jvm-memory-area" class="jvm-internal">
+                <strong>JVM Memory</strong>
+                <div id="jvm-method-area" class="jvm-internal-small">
+                    Method Area
+                    <div id="ma-blueprint" class="jvm-internal-item">
+                        <strong>Class Blueprint</strong>
+                        <p>HelloWorld.class</p>
+                        <p>- main() bytecode</p>
+                    </div>
+                </div>
+                <div id="jvm-heap" class="jvm-internal-small">
+                    Heap
+                    <div id="heap-string-pool" class="jvm-internal-item">
+                        <strong>String Pool</strong>
+                        <p>"Hello, World!"</p>
+                    </div>
+                </div>
+                <div id="jvm-stack" class="jvm-internal-small">
+                    Call Stack
+                    <div id="scene-stack-frame" class="scene-element">
+                        <strong>main()</strong>
+                        <p>System.out.println(...)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output -->
+        <div id="scene-console" class="scene-element">
+            <strong>CONSOLE</strong>
+            <p id="console-output"></p>
+        </div>
+
+    </div>
+
+    <!-- Narration Box -->
+    <div id="narration-box">
+        <p>Click "Start" to begin...</p>
+    </div>
+
+    <!-- NEW: JDK/JRE/JVM "Big Picture" Diagram -->
+    <section id="jdk-diagram-section">
+        <h2>Java's Big Picture: JDK vs. JRE</h2>
+
+        <!-- NEW: Diagram Controls -->
+        <div class="diagram-controls">
+            <button id="jdk-prev-btn">&larr; Prev</button>
+            <button id="jdk-next-btn">Next &rarr;</button>
+        </div>
+
+        <div class="diagram-layout">
+            
+            <!-- Animated Diagram -->
+            <div id="jdk-diagram-animated">
+                <div class="jdk-box diagram-box">
+                    <strong>JDK = JRE + Development Tools</strong>
+                    (Java Development Kit)
+                    <div class="jre-box diagram-box">
+                        <strong>JRE = JVM + Library Classes</strong>
+                        (Java Runtime Environment)
+                        <div class="jvm-box diagram-box">
+                            <strong>JVM</strong>
+                            (Java Virtual Machine)
+                            <div class="jit-box diagram-box">
+                                <strong>JIT</strong>
+                                (Just-in-Time)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explanation Panel -->
+            <div id="jdk-diagram-explanation">
+                <ul>
+                    <li id="jdk-desc" class="desc-box">
+                        <strong>JDK (Java Development Kit)</strong>
+                        <p>You need this to <strong>write</strong> and <strong>compile</strong> Java code. It includes the JRE plus development tools (like the <code>javac</code> compiler).</p>
+                    </li>
+                    <li id="jre-desc" class="desc-box">
+                        <strong>JRE (Java Runtime Environment)</strong>
+                        <p>You need this to <strong>run</strong> Java applications. It includes the JVM plus all the built-in library classes (like <code>String</code>, <code>System</code>, etc.).</p>
+                    </li>
+                    <li id="jvm-desc" class="desc-box">
+                        <strong>JVM (Java Virtual Machine)</strong>
+                        <p>The "engine" or "factory" that actually executes the <code>.class</code> bytecode. This is what we animated above!</p>
+                    </li>
+                    <li id="jit-desc" class="desc-box">
+                        <strong>JIT (Just-in-Time) Compiler</strong>
+                        <p>A component of the JVM that boosts performance by compiling frequently used bytecode into native machine code at runtime.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- JVM Architecture Diagram Section -->
+    <section id="diagram-section">
+        <h2>JVM Architecture Diagram</h2>
+        <div id="jvm-diagram">
+            
+            <!-- Classloader Subsystem -->
+            <div class="jvm-block" style="border-color: #76C700;">
+                <h3>Classloader Subsystem</h3>
+                <div class="jvm-sub-block">Loading</div>
+                <div class="jvm-sub-block">Linking</div>
+                <div class="jvm-sub-block">Initialization</div>
+            </div>
+
+            <div class="arrow-connector">&darr;</div>
+
+            <!-- JVM Memory Areas -->
+            <div class="jvm-block">
+                <h3>JVM Memory Areas</h3>
+                <div class="jvm-memory-layout">
+                    <div class="jvm-area">Method Area</div>
+                    <div class="jvm-area">Heap</div>
+                    <div class="jvm-area">Stack</div>
+                    <div class="jvm-area">PC Registers</div>
+                    <div class="jvm-area">Native Method Stacks</div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">&darr;</div>
+
+            <!-- Execution Engine -->
+            <div class="jvm-block">
+                <h3>Execution Engine</h3>
+                <div class="jvm-execution-layout">
+                    <div class="jvm-sub-block">Interpreter</div>
+                    <div class="jvm-sub-block" style="background-color: #AFFF33; border-color: #76C700; color: #111;">JIT Compiler</div>
+                    <div class="jvm-sub-block">Garbage Collector</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="app1.js"></script>
+</body>
+</html>
