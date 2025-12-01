@@ -1,6 +1,7 @@
 package recArrays;
 
 public class ArraySortedOrNot {
+    
     public static void main(String[] args) {
         int[] arr = {2,4,6,11,9};
 
