@@ -5,11 +5,11 @@ import java.util.List;
 
 public class DuplicateElement {
     public static void main(String[] args) {
-        int[] nums ={1,2,2,4};
+        int[] nums ={1,2,0};
         //  int[] nums = {4,3,2,7,8,2,3,1};
          
-        System.out.println(Arrays.toString(cyclicSort3(nums)));
-        // System.out.println(cyclicSort3(nums));
+        // System.out.println(Arrays.toString(cyclicSort2(nums)));
+        System.out.println( cyclicSort2(nums));
     }
 
     static List<Integer> cyclicSort1(int[] arr) {
